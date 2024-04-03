@@ -5,7 +5,6 @@
 #include <float.h>
 
 #include "../s21_matrix.h"
-#include "../s21_utils.h"
 
 /**
  * s21 suites

@@ -1,7 +1,5 @@
 #include "s21_matrix.h"
 
-#include "s21_utils.h"
-
 int s21_create_matrix(int rows, int columns, matrix_t *result) {
   int status = OK;
 
@@ -45,26 +43,6 @@ int s21_compare_matrix(matrix_t A, matrix_t B) {
     for (int j = 0; j < A.columns; j++) {
       if (A.matrix[i][j] != B.matrix[i][j]) {
         status = FAILURE;
-      }
-    }
-  }
-
-  return status;
-}
-
-int s21_transpose(matrix_t *A, matrix_t *result) {
-  int status = OK;
-
-  if (!s21_check_matrix(A)) {
-    status = INCORRECT_MATRIX;
-  } else {
-    status = s21_create_matrix(A->columns, A->rows, result);
-  }
-
-  if (status == OK) {
-    for (int i = 0; i < result->rows; i++) {
-      for (int j = 0; j < result->columns; j++) {
-        result->matrix[i][j] = A->matrix[j][i];
       }
     }
   }

@@ -6,7 +6,8 @@ TFLAGS = -lcheck -lsubunit -lm
 GFLAGS = -fprofile-arcs -ftest-coverage
 VLGRND = valgrind --tool=memcheck --leak-check=yes --show-leak-kinds=all --track-origins=yes -s
 
-SRC = $(wildcard s21_*.c)
+DIRS := utils arithmetic conversion
+SRC := $(shell find $(DIRS) -name "s21_*.c") s21_*.c
 TEST_PATH = $(wildcard tests/s21_*.c)
 OBJ = $(SRC:.c=.o)
 TEST_OBJ = $(TEST_PATH:.c=.o)
