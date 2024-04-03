@@ -21,6 +21,8 @@ typedef struct matrix_struct {
 */
 enum { OK = 0, INCORRECT_MATRIX = 1, CALC_ERROR = 2, MEMORY_ERROR = 3 };
 
+#define S21_EPS 1e-7
+
 #define SUCCESS 1
 #define FAILURE 0
 
