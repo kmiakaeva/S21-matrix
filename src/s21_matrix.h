@@ -30,29 +30,28 @@ enum { OK = 0, INCORRECT_MATRIX = 1, CALC_ERROR = 2, MEMORY_ERROR = 3 };
 int s21_create_matrix(int rows, int columns, matrix_t *result);
 void s21_remove_matrix(matrix_t *A);
 int s21_eq_matrix(matrix_t *A, matrix_t *B);
-// ./arithmetic
+// arithmetic
 int s21_sum_matrix(matrix_t *A, matrix_t *B, matrix_t *result);
 int s21_sub_matrix(matrix_t *A, matrix_t *B, matrix_t *result);
 int s21_mult_number(matrix_t *A, double number, matrix_t *result);
 int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result);
-// ./conversion
+// conversion
 int s21_transpose(matrix_t *A, matrix_t *result);
 // int s21_inverse_matrix(matrix_t *A, matrix_t *result);
 // s21_calc_complements.c
-// int s21_calc_complements(matrix_t *A, matrix_t *result);
+int s21_calc_complements(matrix_t *A, matrix_t *result);
 // s21_determinant.c
 int s21_determinant(matrix_t *A, double *result);
 
 // !s21
-int s21_compare_matrix(matrix_t A, matrix_t B);
 void s21_multiply_matrix(matrix_t *A, matrix_t *B, matrix_t *result);
 double s21_determinant_matrix(matrix_t *A, int size);
-void s21_get_minor(matrix_t A, matrix_t *minor, int skip_row, int skip_col);
+int s21_calc_complements_matrix(matrix_t *A, matrix_t *result, int size);
 
-// ./utils
-int s21_calloc_matrix(int rows, int columns, matrix_t *result);
+// utils
 void s21_print_matrix(matrix_t A);
 int s21_check_matrix(matrix_t *A);
 double s21_get_random_value(double min, double max);
+void s21_get_minor(matrix_t A, matrix_t *minor, int skip_row, int skip_col);
 
 #endif
