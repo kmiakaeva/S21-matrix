@@ -100,6 +100,16 @@ START_TEST(s21_create_matrix_10) {
 }
 END_TEST
 
+START_TEST(s21_create_matrix_11) {
+  const int rows = 1000000000;
+  const int columns = 1000000000;
+  matrix_t A = {0};
+
+  ck_assert_int_eq(s21_create_matrix(rows, columns, &A), MEMORY_ERROR);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
 Suite *s21_create_matrix_suite(void) {
   Suite *s = suite_create("s21_create_matrix_suite");
   TCase *tc = tcase_create("s21_create_matrix_tc");
@@ -114,6 +124,7 @@ Suite *s21_create_matrix_suite(void) {
   tcase_add_test(tc, s21_create_matrix_8);
   tcase_add_test(tc, s21_create_matrix_9);
   tcase_add_test(tc, s21_create_matrix_10);
+  tcase_add_test(tc, s21_create_matrix_11);
 
   suite_add_tcase(s, tc);
 
