@@ -1,4 +1,4 @@
-#include "s21_matrix_test.h"
+#include "../s21_matrix_test.h"
 
 START_TEST(s21_create_matrix_1) {
   const int rows = 1;

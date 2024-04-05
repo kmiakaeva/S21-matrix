@@ -1,4 +1,4 @@
-#include "s21_matrix_test.h"
+#include "../s21_matrix_test.h"
 
 START_TEST(s21_eq_matrix_1) {
   const int rows = rand() % 100 + 1;
@@ -154,7 +154,6 @@ START_TEST(s21_eq_matrix_8) {
   matrix_t B = {0};
   s21_create_matrix(1, 1, &B);
   B.matrix[0][0] = 0.6;
-  B.matrix[0][1] = 0;
 
   ck_assert_int_eq(s21_eq_matrix(&A, &B), FAILURE);
   s21_remove_matrix(&A);

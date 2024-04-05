@@ -23,7 +23,5 @@ int run_s21_matrix_test(Suite *s21_suite) {
   srunner_run_all(sr, CK_NORMAL);
   srunner_free(sr);
 
-  printf("\n");
-
   return 0;
 }

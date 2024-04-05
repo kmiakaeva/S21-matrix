@@ -5,7 +5,7 @@ int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
 
   if (!s21_check_matrix(A) || !s21_check_matrix(B)) {
     status = INCORRECT_MATRIX;
-  } else if (A->rows != B->columns) {
+  } else if (A->columns != B->rows) {
     status = CALC_ERROR;
   } else {
     status = s21_create_matrix(A->rows, B->columns, result);

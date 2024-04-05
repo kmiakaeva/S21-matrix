@@ -1,4 +1,4 @@
-#include "s21_matrix_test.h"
+#include "../s21_matrix_test.h"
 
 START_TEST(s21_transpose_1) {
   const int rows = rand() % 100 + 1;

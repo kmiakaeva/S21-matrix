@@ -3,30 +3,42 @@ SHELL = /bin/sh
 CFLAGS = -Wall -Werror -Wextra -std=c11 -g
 CC = gcc
 TFLAGS = -lcheck -lsubunit -lm
-GFLAGS = -fprofile-arcs -ftest-coverage
-VLGRND = valgrind --tool=memcheck --leak-check=yes --show-leak-kinds=all --track-origins=yes -s
+GFLAGS = --coverage -fprofile-arcs -ftest-coverage
 
-DIRS := utils arithmetic conversion
-SRC := $(shell find $(DIRS) -name "s21_*.c") s21_*.c
-TEST_PATH = $(wildcard tests/s21_*.c)
-OBJ = $(SRC:.c=.o)
-TEST_OBJ = $(TEST_PATH:.c=.o)
+SRC = utils/*.c conversion/*.c arithmetic/*.c operations/*.c
+ALL_SRC = $(SRC) tests/*.c tests/suites/*.c
 
-all: clear s21_matrix run
+all: s21_matrix.a
 
-s21_matrix:
-	$(CC) $(CFLAGS) $(SRC) $(TEST_PATH) -o s21_matrix $(TFLAGS)
+rebuild: clean clear s21_matrix.a
 
-run:
-	./s21_matrix
+s21_matrix.a: 
+	$(CC) $(CFLAGS) -c $(SRC)
+	ar rc s21_matrix.a *.o
 
-rebuild: clean all
+test: clear s21_matrix.a 
+	$(CC) $(CFLAGS) $(ALL_SRC) s21_matrix.a $(TFLAGS) -o s21_tests
+	./s21_tests
 
-clang-format:
-	clang-format -i *.c tests/*.c *.h tests/*.h
+gcov_report: clear s21_matrix.a
+	@$(CC) $(CFLAGS) $(ALL_SRC) s21_matrix.a $(TFLAGS) -o s21_gcov_r $(GFLAGS)
+	@./s21_gcov_r > /dev/null 2>&1
+	@lcov -t "gcov_report" -o s21_gcov_report.info -c -d . > /dev/null 2>&1
+	@lcov -q -r s21_gcov_report.info '*/utils/*' '*/tests/*' -o s21_gcov_report.info > /dev/null 2>&1
+	lcov -l s21_gcov_report.info
+	@genhtml -o report s21_gcov_report.info > /dev/null 2>&1
+
+clean:
+	rm -rf report report s21_tests s21_gcov_r
+	rm -rf s21_gcov *.gcno *.gcda *.info *.html *.css *.png *.deb *.a *.o
 
 clear:
 	clear
 
-clean:
-	rm s21_matrix
+clang-format:
+	clang-format -i $(ALL_SRC) *.h tests/*.h
+
+valgrind:
+	valgrind --tool=memcheck --leak-check=yes ./s21_tests
+
+.PHONY: all rebuild test gcov_report clean clear clang-format valgrind
